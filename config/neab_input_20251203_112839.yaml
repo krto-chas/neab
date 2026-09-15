@@ -1,0 +1,17 @@
+kronjuveler: []
+organisation:
+  karnverksamhet: testbolag som gör lite vad som helst
+  kritiska_anlaggningar: 10
+  kunder:
+    elnat: 2
+    fjarrvärme: 10
+  namn: test
+  personal: 500
+  typ: privat
+regulatoriska_krav:
+  cer: true
+  dora: false
+  gdpr: true
+  nis2: true
+tillgangar:
+- SCADA
