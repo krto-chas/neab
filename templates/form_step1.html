@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Steg 1: Organisation - NEAB{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="progress-bar">
+        <div class="progress-step active">1. Organisation</div>
+        <div class="progress-step">2. Tillgångar</div>
+        <div class="progress-step">3. Regelverk</div>
+        <div class="progress-step">4. Slutför</div>
+    </div>
+
+    <h1>Steg 1: Organisationsinformation</h1>
+
+    <form method="POST" action="{{ url_for('form_step1') }}" class="assessment-form">
+        <div class="form-section">
+            <h2>Grundläggande information</h2>
+
+            <div class="form-group">
+                <label for="org_namn">Organisationsnamn *</label>
+                <input type="text" id="org_namn" name="org_namn"
+                       value="{{ session.get('org_namn', '') }}"
+                       required placeholder="t.ex. Nordlunda Energi AB">
+            </div>
+
+            <div class="form-group">
+                <label for="org_typ">Organisationstyp *</label>
+                <select id="org_typ" name="org_typ" required>
+                    <option value="">-- Välj typ --</option>
+                    <option value="dso">DSO (Elnätsbolag)</option>
+                    <option value="dso_fv">DSO + Fjärrvärme</option>
+                    <option value="produktionsbolag">Produktionsbolag</option>
+                    <option value="kommun">Kommun</option>
+                    <option value="landsting">Region/Landsting</option>
+                    <option value="statlig">Statlig myndighet</option>
+                    <option value="privat">Privat företag</option>
+                    <option value="annat">Annat</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="elnat_kunder">Antal elnätskunder</label>
+                    <input type="number" id="elnat_kunder" name="elnat_kunder"
+                           value="{{ session.get('elnat_kunder', 0) }}"
+                           min="0" placeholder="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="fv_kunder">Antal fjärrvärmekunder</label>
+                    <input type="number" id="fv_kunder" name="fv_kunder"
+                           value="{{ session.get('fv_kunder', 0) }}"
+                           min="0" placeholder="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="personal">Antal anställda *</label>
+                <input type="number" id="personal" name="personal"
+                       value="{{ session.get('personal', '') }}"
+                       required min="1" placeholder="t.ex. 450">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>Verksamhet</h2>
+
+            <div class="form-group">
+                <label for="karnverksamhet">Beskriv kärnverksamheten *</label>
+                <textarea id="karnverksamhet" name="karnverksamhet"
+                          rows="3" required
+                          placeholder="t.ex. Regionalt energibolag som betjänar ca 85,000 elnätskunder och 12,000 fjärrvärmekunder">{{ session.get('karnverksamhet', '') }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="kritiska_anlaggningar">Antal kritiska anläggningar</label>
+                <input type="number" id="kritiska_anlaggningar" name="kritiska_anlaggningar"
+                       value="{{ session.get('kritiska_anlaggningar', 10) }}"
+                       min="0" placeholder="10">
+                <small>t.ex. nätstationer, datacenter, driftcentral</small>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Avbryt</a>
+            <button type="submit" class="btn btn-primary">Nästa steg →</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

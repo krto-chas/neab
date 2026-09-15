@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Resultat - NEAB{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>📊 Tidigare analyser</h1>
+
+    {% if results %}
+        <div class="results-grid">
+            {% for result in results %}
+            <div class="result-card">
+                <div class="result-header">
+                    <h3>📁 {{ result.timestamp }}</h3>
+                    <span class="badge badge-success">Klar</span>
+                </div>
+
+                <div class="result-body">
+                    <p class="result-info">
+                        <strong>Mapp:</strong> {{ result.folder }}
+                    </p>
+
+                    <div class="download-links">
+                        {% if result.pdf %}
+                        <a href="{{ url_for('download_file', folder=result.folder, filename=result.pdf) }}"
+                           class="btn btn-sm btn-primary">
+                            📄 PDF-rapport
+                        </a>
+                        {% endif %}
+
+                        {% if result.excel %}
+                        <a href="{{ url_for('download_file', folder=result.folder, filename=result.excel) }}"
+                           class="btn btn-sm btn-secondary">
+                            📊 Excel-analys
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="result-footer">
+                    <small>Genererad: {{ result.timestamp }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>🔍 Inga analyser hittades</h2>
+            <p>Du har inte kört någon säkerhetsanalys ännu.</p>
+            <a href="{{ url_for('form_step1') }}" class="btn btn-primary">
+                Starta ny analys →
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="form-actions" style="margin-top: 2rem;">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">← Tillbaka till hem</a>
+        <a href="{{ url_for('form_step1') }}" class="btn btn-primary">Ny analys</a>
+    </div>
+</div>
+{% endblock %}

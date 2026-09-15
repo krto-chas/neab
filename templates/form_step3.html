@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Steg 3: Regelverk - NEAB{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="progress-bar">
+        <div class="progress-step">1. Organisation</div>
+        <div class="progress-step">2. Tillgångar</div>
+        <div class="progress-step active">3. Regelverk</div>
+        <div class="progress-step">4. Slutför</div>
+    </div>
+
+    <h1>Steg 3: Tillämpliga regelverk</h1>
+
+    <form method="POST" class="assessment-form">
+        <div class="form-section">
+            <h2>Välj tillämpliga regelverk</h2>
+            <p>Markera de regelverk som är tillämpliga för er organisation</p>
+
+            <div class="checkbox-group">
+                <label class="checkbox-card">
+                    <input type="checkbox" name="nis2" value="true"
+                           {% if session.get('nis2') %}checked{% endif %}>
+                    <div class="checkbox-content">
+                        <h3>NIS2-direktivet</h3>
+                        <p>EU:s cybersäkerhetsdirektiv för väsentliga och viktiga enheter</p>
+                        <span class="badge">Energisektor</span>
+                    </div>
+                </label>
+
+                <label class="checkbox-card">
+                    <input type="checkbox" name="gdpr" value="true"
+                           {% if session.get('gdpr') %}checked{% endif %}>
+                    <div class="checkbox-content">
+                        <h3>GDPR</h3>
+                        <p>Dataskyddsförordningen för behandling av personuppgifter</p>
+                        <span class="badge">Alla organisationer</span>
+                    </div>
+                </label>
+
+                <label class="checkbox-card">
+                    <input type="checkbox" name="dora" value="true"
+                           {% if session.get('dora') %}checked{% endif %}>
+                    <div class="checkbox-content">
+                        <h3>DORA</h3>
+                        <p>Digital Operational Resilience Act för finanssektorn</p>
+                        <span class="badge">Finansiella tjänster</span>
+                    </div>
+                </label>
+
+                <label class="checkbox-card">
+                    <input type="checkbox" name="cer" value="true"
+                           {% if session.get('cer') %}checked{% endif %}>
+                    <div class="checkbox-content">
+                        <h3>CER (Critical Entities Resilience)</h3>
+                        <p>EU-direktiv om resiliens för kritiska enheter</p>
+                        <span class="badge">Kritisk infrastruktur</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>ℹ️ Information</h3>
+            <p>Baserat på era val kommer analysen att:</p>
+            <ul>
+                <li>Kartlägga specifika krav från varje regelverk</li>
+                <li>Identifiera gap i efterlevnad</li>
+                <li>Föreslå åtgärder för att uppfylla kraven</li>
+            </ul>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ url_for('form_step2') }}" class="btn btn-secondary">← Tillbaka</a>
+            <button type="submit" class="btn btn-primary">Nästa steg →</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Steg 4: Granska - NEAB{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="progress-bar">
+        <div class="progress-step">1. Organisation</div>
+        <div class="progress-step">2. Tillgångar</div>
+        <div class="progress-step">3. Regelverk</div>
+        <div class="progress-step active">4. Slutför</div>
+    </div>
+
+    <h1>Steg 4: Granska och generera analys</h1>
+    
+    <div class="review-section">
+        <h2>📋 Sammanfattning av indata</h2>
+        
+        <div class="review-card">
+            <h3>Organisation</h3>
+            <table class="review-table">
+                <tr>
+                    <td><strong>Namn:</strong></td>
+                    <td>{{ data.org_namn }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Typ:</strong></td>
+                    <td>{{ data.org_typ }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Personal:</strong></td>
+                    <td>{{ data.personal }} anställda</td>
+                </tr>
+                {% if data.elnat_kunder > 0 %}
+                <tr>
+                    <td><strong>Elnätskunder:</strong></td>
+                    <td>{{ data.elnat_kunder }}</td>
+                </tr>
+                {% endif %}
+                {% if data.fv_kunder > 0 %}
+                <tr>
+                    <td><strong>Fjärrvärmekunder:</strong></td>
+                    <td>{{ data.fv_kunder }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+
+        <div class="review-card">
+            <h3>Tillämpliga regelverk</h3>
+            <div class="badge-group">
+                {% if data.nis2 %}
+                <span class="badge badge-primary">NIS2</span>
+                {% endif %}
+                {% if data.gdpr %}
+                <span class="badge badge-primary">GDPR</span>
+                {% endif %}
+                {% if data.dora %}
+                <span class="badge badge-primary">DORA</span>
+                {% endif %}
+                {% if data.cer %}
+                <span class="badge badge-primary">CER</span>
+                {% endif %}
+                {% if not (data.nis2 or data.gdpr or data.dora or data.cer) %}
+                <span class="badge badge-warning">Inga regelverk valda</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="info-box info-warning">
+            <h3>⚠️ Viktigt</h3>
+            <p>När du klickar på "Generera analys" kommer systemet att:</p>
+            <ul>
+                <li>Skapa en YAML-konfigurationsfil</li>
+                <li>Starta säkerhetsanalysen (kan ta 1-2 minuter)</li>
+                <li>Generera PDF-rapport, Excel-analys och Heat Map</li>
+            </ul>
+        </div>
+    </div>
+
+    <form method="POST" class="assessment-form">
+        <div class="form-actions">
+            <a href="{{ url_for('form_step3') }}" class="btn btn-secondary">← Tillbaka</a>
+            <button type="submit" class="btn btn-primary btn-lg">🚀 Generera analys</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

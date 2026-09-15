@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Steg 2: Tillgångar - NEAB{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="progress-bar">
+        <div class="progress-step">1. Organisation</div>
+        <div class="progress-step active">2. Tillgångar</div>
+        <div class="progress-step">3. Regelverk</div>
+        <div class="progress-step">4. Slutför</div>
+    </div>
+
+    <h1>Steg 2: Tillgångar och Kronjuveler</h1>
+
+    <form method="POST" class="assessment-form">
+        <div class="form-section">
+            <h2>Kritiska tillgångar</h2>
+            <p>Lista era mest kritiska system och tillgångar</p>
+
+            <div id="tillgangar-list">
+                <div class="form-group">
+                    <input type="text" name="tillgang[]" placeholder="t.ex. SCADA/DCS" class="form-control">
+                </div>
+            </div>
+
+            <button type="button" onclick="addField('tillgangar')" class="btn btn-secondary">+ Lägg till tillgång</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Kronjuveler</h2>
+            <p>Era mest värdefulla och skyddsvärda tillgångar</p>
+
+            <div id="kronjuveler-list">
+                <div class="form-group">
+                    <input type="text" name="kronjuvel[]" placeholder="t.ex. Kundregister" class="form-control">
+                </div>
+            </div>
+
+            <button type="button" onclick="addField('kronjuveler')" class="btn btn-secondary">+ Lägg till kronjuvel</button>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ url_for('form_step1') }}" class="btn btn-secondary">← Tillbaka</a>
+            <button type="submit" class="btn btn-primary">Nästa steg →</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function addField(type) {
+    const container = document.getElementById(type + '-list');
+    const newField = document.createElement('div');
+    newField.className = 'form-group';
+    newField.innerHTML = `
+        <input type="text" name="${type === 'tillgangar' ? 'tillgang' : 'kronjuvel'}[]"
+               placeholder="Beskriv tillgång/kronjuvel" class="form-control">
+    `;
+    container.appendChild(newField);
+}
+</script>
+{% endblock %}
+EOF
+echo "✅ form_step2.html skapad"

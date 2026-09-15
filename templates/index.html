@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Hem - NEAB Security Assessment{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>NEAB Security Assessment Suite</h1>
+    <p class="subtitle">Riskworkshop med regulatorisk kartläggning enligt MSB:s metodik</p>
+
+    <div class="features">
+        <div class="feature-card">
+            <h3>📋 Regulatorisk Kartläggning</h3>
+            <p>NIS2, GDPR, DORA, CER</p>
+        </div>
+        <div class="feature-card">
+            <h3>⚠️ Riskanalys</h3>
+            <p>MSB-metod + STRIDE</p>
+        </div>
+        <div class="feature-card">
+            <h3>🛡️ Mitigering</h3>
+            <p>CIS Controls</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔌 API-säkerhet</h3>
+            <p>B2B & B2C analys</p>
+        </div>
+    </div>
+
+    <div class="cta">
+        <a href="{{ url_for('form_step1') }}" class="btn btn-primary">Starta ny analys →</a>
+        <a href="{{ url_for('results') }}" class="btn btn-secondary">Visa tidigare resultat</a>
+    </div>
+</div>
+
+<div class="info-section">
+    <h2>Så fungerar det</h2>
+    <ol class="steps">
+        <li><strong>Steg 1:</strong> Fyll i organisationsinformation</li>
+        <li><strong>Steg 2:</strong> Identifiera tillgångar och kronjuveler</li>
+        <li><strong>Steg 3:</strong> Välj tillämpliga regelverk</li>
+        <li><strong>Steg 4:</strong> Generera komplett säkerhetsanalys</li>
+    </ol>
+</div>
+{% endblock %}

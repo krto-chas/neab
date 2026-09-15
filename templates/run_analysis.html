@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Kör analys - NEAB{% endblock %}
+
+{% block content %}
+<div class="form-container text-center">
+    <h1>🔄 Säkerhetsanalys pågår...</h1>
+    
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="analysis-status">
+        <p class="status-text">Detta kan ta 1-2 minuter</p>
+        
+        <div class="progress-steps-vertical">
+            <div class="step-item active">
+                <span class="step-icon">✓</span>
+                <span class="step-text">Laddar konfiguration</span>
+            </div>
+            <div class="step-item" id="step-regulatory">
+                <span class="step-icon">⏳</span>
+                <span class="step-text">Regulatorisk kartläggning</span>
+            </div>
+            <div class="step-item" id="step-risk">
+                <span class="step-icon">⏳</span>
+                <span class="step-text">Riskanalys (STRIDE + MSB)</span>
+            </div>
+            <div class="step-item" id="step-mitigation">
+                <span class="step-icon">⏳</span>
+                <span class="step-text">Mitigeringsstrategier</span>
+            </div>
+            <div class="step-item" id="step-api">
+                <span class="step-icon">⏳</span>
+                <span class="step-text">API-säkerhetsanalys</span>
+            </div>
+            <div class="step-item" id="step-reports">
+                <span class="step-icon">⏳</span>
+                <span class="step-text">Genererar rapporter</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <p><strong>Systemet analyserar nu:</strong></p>
+        <ul style="text-align: left;">
+            <li>32+ identifierade risker enligt MSB-metodik</li>
+            <li>9+ regulatoriska krav från valda regelverk</li>
+            <li>15+ föreslagna säkerhetsåtgärder</li>
+            <li>Risk heat map visualisering</li>
+        </ul>
+    </div>
+
+    <button id="check-status" class="btn btn-secondary" style="margin-top: 2rem;">
+        Kontrollera status
+    </button>
+
+    <div id="result-section" style="display: none; margin-top: 2rem;">
+        <div class="alert alert-success">
+            <h3>✅ Analys slutförd!</h3>
+            <p>Rapporten har genererats och är redo att ladda ner.</p>
+        </div>
+        <a href="{{ url_for('results') }}" class="btn btn-primary btn-lg">
+            Visa resultat →
+        </a>
+    </div>
+</div>
+
+<script>
+// Simulera analys-progression
+let currentStep = 0;
+const steps = ['regulatory', 'risk', 'mitigation', 'api', 'reports'];
+
+function updateProgress() {
+    if (currentStep < steps.length) {
+        const stepId = 'step-' + steps[currentStep];
+        const element = document.getElementById(stepId);
+        
+        // Markera som aktiv
+        element.classList.add('active');
+        element.querySelector('.step-icon').textContent = '✓';
+        
+        currentStep++;
+        setTimeout(updateProgress, 10000); // 10 sekunder per steg
+    } else {
+        // Visa resultat-sektion
+        document.getElementById('result-section').style.display = 'block';
+        document.querySelector('.loading-spinner').style.display = 'none';
+    }
+}
+
+// Starta progression efter 2 sekunder
+setTimeout(updateProgress, 2000);
+
+// Check status knapp
+document.getElementById('check-status').addEventListener('click', function() {
+    // I riktig implementation: AJAX-anrop till backend
+    alert('Analys pågår fortfarande. Vänligen vänta...');
+});
+</script>
+{% endblock %}

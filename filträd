@@ -1,0 +1,34 @@
+neab_security_assessment/
+├── app.py                          # Flask web-app (nytt)
+├── huvudskript.py                  # CLI-version (uppdaterad)
+├── requirements.txt                # Uppdaterad
+├── config/
+│   ├── __init__.py
+│   ├── input_loader.py            # YAML/JSON loader (nytt)
+│   ├── neab_input.yaml            # Input-template (nytt)
+│   └── settings.py                # App settings (nytt)
+├── modules/
+│   ├── __init__.py
+│   ├── regulatorisk_modul.py      # Befintlig (uppdateras)
+│   ├── risk_workshop_modul.py     # Befintlig (uppdateras)
+│   ├── api_sakerhet_modul.py      # Befintlig (uppdateras)
+│   └── rapport_generator.py       # Befintlig (förbättras)
+├── templates/                      # Flask HTML templates (nytt)
+│   ├── base.html
+│   ├── index.html
+│   ├── form_step1.html
+│   ├── form_step2.html
+│   ├── form_step3.html
+│   └── results.html
+├── static/                         # CSS/JS för webb (nytt)
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── form_validation.js
+├── utils/
+│   ├── __init__.py
+│   ├── console_formatter.py       # Snygg konsol (nytt)
+│   └── pdf_template.py            # Professionell PDF (nytt)
+└── data/
+    ├── input/                      # Sparade inputs
+    └── output/                     # Genererade rapporter
